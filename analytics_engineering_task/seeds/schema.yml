@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: raw_tickets
+    config:
+      column_types:
+        ticket_number: varchar
+        base_fare: decimal(10,2)
+        taxes_fees: decimal(10,2)
+        total_price: decimal(10,2)
+        
+  - name: raw_bookings
+    config:
+      column_types:
+        total_amount: decimal(10,2)
+        
+  - name: raw_passengers
+    config:
+      column_types:
+        age_years: integer

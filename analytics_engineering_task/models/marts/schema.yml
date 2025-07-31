@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  - name: fct_bookings
+    description: "Fact table containing booking transactions at ticket-segment-passenger grain"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "revenue >= 0"
+          config:
+            severity: error
+    columns:
+      - name: booking_fact_key
+        description: "Surrogate key for the fact table"
+        tests:
+          - unique
+          - not_null
+      - name: booking_id
+        description: "Foreign key to bookings"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_bookings')
+              field: booking_id
+      - name: passenger_id
+        description: "Foreign key to passengers"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_passengers')
+              field: passenger_id
+      - name: ticket_id
+        description: "Foreign key to tickets"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_tickets')
+              field: ticket_id
+      - name: segment_id
+        description: "Foreign key to segments"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_segments')
+              field: segment_id
+      - name: total_price
+        description: "Total price of the ticket"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+  - name: dim_passengers
+    description: "Dimension table for passenger information"
+    columns:
+      - name: passenger_id
+        description: "Unique identifier for passengers"
+        tests:
+          - unique
+          - not_null
+      - name: age_category
+        description: "Age category of passenger"
+        tests:
+          - accepted_values:
+              values: ['Infant', 'Child', 'Minor', 'Adult', 'Senior']
+
+  - name: dim_flights
+    description: "Dimension table for flight information"
+    columns:
+      - name: segment_id
+        description: "Unique identifier for flight segments"
+        tests:
+          - unique
+          - not_null
+      - name: flight_category
+        description: "Flight distance category"
+        tests:
+          - accepted_values:
+              values: ['Short Haul', 'Medium Haul', 'Long Haul']
+
+  - name: booking_summary_improved
+    description: "Improved booking summary model - example of mentored code"
+    columns:
+      - name: booking_id
+        description: "Unique identifier for bookings"
+        tests:
+          - unique
+          - not_null
+      - name: unique_passenger_count
+        description: "Count of distinct passengers per booking"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 1
+              inclusive: true
+      - name: total_revenue
+        description: "Revenue from issued tickets only"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true

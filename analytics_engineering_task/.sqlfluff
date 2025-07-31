@@ -1,0 +1,56 @@
+[sqlfluff]
+# SQLFluff configuration for dbt project
+templater = dbt
+dialect = duckdb
+
+# Rule exclusions for dbt-specific patterns
+exclude_rules = L034,L036
+
+[sqlfluff:templater:dbt]
+# dbt project configuration
+project_dir = .
+profiles_dir = ~/.dbt
+profile = analytics_engineering_task
+target = dev
+
+[sqlfluff:indentation]
+# Use 4 spaces for indentation
+indent_unit = space
+tab_space_size = 4
+
+[sqlfluff:layout:type:comma]
+# Trailing commas configuration
+line_position = trailing
+
+[sqlfluff:rules:capitalisation.keywords]
+# Use lowercase keywords (dbt convention)
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+# Use lowercase functions
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.literals]
+# Use lowercase literals
+capitalisation_policy = lower
+
+[sqlfluff:rules:ambiguous.column_references]
+# Allow unqualified column references in single table contexts
+single_table_references = consistent
+
+[sqlfluff:rules:convention.select_trailing_comma]
+# Require trailing commas in SELECT clauses
+select_clause_trailing_comma = require
+
+[sqlfluff:rules:layout.long_lines]
+# Set line length limit
+ignore_comment_lines = true
+ignore_comment_clauses = true
+
+[sqlfluff:rules:references.special_chars]
+# Allow special characters in dbt references
+unquoted_identifiers_policy = all
+
+[sqlfluff:rules:structure.subquery]
+# Allow subqueries in FROM clauses (common in dbt)
+forbid_subquery_in = ()

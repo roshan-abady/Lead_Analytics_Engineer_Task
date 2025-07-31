@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: stg_bookings
+    description: "Staging table for booking data with basic cleaning and type casting"
+    columns:
+      - name: booking_id
+        description: "Unique identifier for each booking"
+        tests:
+          - unique
+          - not_null
+      - name: booking_status
+        description: "Status of the booking"
+        tests:
+          - accepted_values:
+              values: ['confirmed', 'cancelled', 'pending']
+      - name: total_amount
+        description: "Total amount of the booking"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+  - name: stg_passengers
+    description: "Staging table for passenger data"
+    columns:
+      - name: passenger_id
+        description: "Unique identifier for each passenger"
+        tests:
+          - unique
+          - not_null
+      - name: passenger_type
+        description: "Type of passenger"
+        tests:
+          - accepted_values:
+              values: ['adult', 'child', 'infant']
+
+  - name: stg_tickets
+    description: "Staging table for ticket data"
+    columns:
+      - name: ticket_id
+        description: "Unique identifier for each ticket"
+        tests:
+          - unique
+          - not_null
+      - name: ticket_status
+        description: "Status of the ticket"
+        tests:
+          - accepted_values:
+              values: ['issued', 'cancelled', 'refunded', 'pending']
+      - name: total_price
+        description: "Total price of the ticket"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+
+  - name: stg_segments
+    description: "Staging table for flight segments"
+    columns:
+      - name: segment_id
+        description: "Unique identifier for each flight segment"
+        tests:
+          - unique
+          - not_null
+      - name: departure_date
+        description: "Departure date"
+        tests:
+          - not_null
+      - name: arrival_date
+        description: "Arrival date"
+        tests:
+          - not_null
