@@ -77,26 +77,3 @@ models:
         tests:
           - accepted_values:
               values: ['Short Haul', 'Medium Haul', 'Long Haul']
-
-  - name: booking_summary_improved
-    description: "Improved booking summary model - example of mentored code"
-    columns:
-      - name: booking_id
-        description: "Unique identifier for bookings"
-        tests:
-          - unique
-          - not_null
-      - name: unique_passenger_count
-        description: "Count of distinct passengers per booking"
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              min_value: 1
-              inclusive: true
-      - name: total_revenue
-        description: "Revenue from issued tickets only"
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
