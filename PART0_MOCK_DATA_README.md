@@ -7,25 +7,29 @@ I've created mock data for 6 interrelated tables representing a travel booking p
 ### Core Tables
 
 #### 1. **raw_bookings.csv** (10 records)
+
 - Primary table containing booking-level information
 - Key fields: `booking_id`, `customer_id`, `booking_date`, `booking_status`, `total_amount`, `currency`
 - Statuses: confirmed, cancelled, pending
 - Currencies: USD, EUR, GBP
 
-#### 2. **raw_segments.csv** (15 records) 
+#### 2. **raw_segments.csv** (15 records)
+
 - Travel legs/flights within bookings
 - Key fields: `segment_id`, `booking_id`, departure/arrival airports, flight details
 - Covers domestic US, European, and international routes
 - Includes realistic flight durations and aircraft types
 
 #### 3. **raw_passengers.csv** (14 records)
+
 - Traveler information
 - Key fields: `passenger_id`, `booking_id`, personal details, `passenger_type`
 - Mix of adults and children
 - Some have frequent flyer numbers
 
 #### 4. **raw_tickets.csv** (16 records)
-- Ticket pricing and fare information  
+
+- Ticket pricing and fare information
 - Key fields: `ticket_id`, `booking_id`, fare details, pricing breakdown
 - Fare classes: Y (economy), W (premium economy), J (business), F (first)
 - Various ticket statuses: issued, cancelled, refunded, pending
@@ -33,11 +37,13 @@ I've created mock data for 6 interrelated tables representing a travel booking p
 ### Linking Tables
 
 #### 5. **raw_ticket_segments.csv** (28 records)
+
 - Links tickets to flight segments
 - Key fields: `ticket_id`, `segment_id`, seat assignments, service preferences
 - Includes seat numbers, meal preferences, baggage allowances
 
-#### 6. **raw_ticket_passengers.csv** (16 records) 
+#### 6. **raw_ticket_passengers.csv** (16 records)
+
 - Links tickets to passengers
 - Key fields: `ticket_id`, `passenger_id`, boarding information
 - Includes boarding passes, gates, special assistance needs
@@ -62,5 +68,3 @@ Ticket (M) -> (M) Passenger (via ticket_passengers)
 - **International travel**: Multiple currencies and countries
 - **Special services**: Meal preferences, assistance needs
 - **Refunds/Changes**: Cancelled and refunded tickets
-
-This mock data provides a realistic foundation for building dbt models with proper fact/dimension table structures and comprehensive data quality testing.
