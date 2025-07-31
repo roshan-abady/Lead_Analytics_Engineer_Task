@@ -73,3 +73,35 @@ models:
         description: "Arrival date"
         tests:
           - not_null
+
+  - name: stg_ticket_passengers
+    description: "Staging table for ticket-passenger relationships"
+    columns:
+      - name: ticket_id
+        description: "Ticket identifier"
+        tests:
+          - not_null
+      - name: passenger_id
+        description: "Passenger identifier"
+        tests:
+          - not_null
+      - name: seat_number
+        description: "Seat number assigned to the passenger"
+      - name: travel_class
+        description: "Class of travel (e.g., economy, business)"
+
+  - name: stg_ticket_segments
+    description: "Staging table for ticket-segment relationships"
+    columns:
+      - name: ticket_id
+        description: "Ticket identifier"
+        tests:
+          - not_null
+      - name: segment_id
+        description: "Segment identifier"
+        tests:
+          - not_null
+      - name: seat_number
+        description: "Seat number for the segment"
+      - name: travel_class
+        description: "Class of travel for the segment (e.g., economy, business)"
