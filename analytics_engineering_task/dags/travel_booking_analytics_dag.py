@@ -3,7 +3,7 @@ Simplified Airflow DAG for dbt Travel Booking Analytics Pipeline
 Uses dbt build command for efficient execution of models and tests
 
 Author: Roshan Abady
-Created: 2024-07-23
+Created: 2025-07-23
 """
 
 from datetime import datetime, timedelta
@@ -16,7 +16,7 @@ from airflow.operators.empty import EmptyOperator
 default_args = {
     'owner': 'analytics_team',
     'depends_on_past': False,
-    'start_date': datetime(2024, 1, 1, tzinfo=pytz.UTC),
+    'start_date': datetime(2025, 1, 1, tzinfo=pytz.UTC),
     'email_on_failure': True,
     'email_on_retry': False,
     'retries': 1,
@@ -35,7 +35,7 @@ dag = DAG(
     tags=['analytics', 'dbt', 'travel', 'booking']
 )
 
-# dbt project path (adjustable for your environment)
+# dbt project path (adjustable per environment)
 DBT_PROJECT_DIR = '/opt/airflow/dbt/analytics_engineering_task'
 DBT_PROFILES_DIR = '/opt/airflow/.dbt'
 
