@@ -1,0 +1,8 @@
+# Byte-compiled / cache / DB files
+*.duckdb
+
+# Logs
+logs/
+
+# dbt build artifacts
+/analytics_engineering_task/target/
